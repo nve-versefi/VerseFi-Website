@@ -20,9 +20,3 @@
 [x-cloak=""] {
     display: none;
 }
-
-
-/* styles.css or main.css */
-spline-viewer::slotted(div[show-logo="true"]) {
-    display: none !important;
-}

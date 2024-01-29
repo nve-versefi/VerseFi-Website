@@ -77,3 +77,70 @@
 .form-radio {
     @apply text-purple-600;
 }
+
+.scale-105 {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+  
+.blur-container {
+    transition: filter 0.3s ease-in-out;
+}
+  
+.blur-container:not(.scale-105) {
+    filter: blur(5px);
+}
+  
+.blur-container .scale-105 {
+    filter: none;
+}
+  
+  .blur-container .team-card {
+    filter: none;
+}
+
+.global-blur {
+    filter: blur(10px);
+    z-index: 9;
+  }
+.page-content.global-blur::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: inherit;
+    filter: blur(10px);
+    pointer-events: none; /* Allow clicking through the overlay */
+    z-index: 2; /* Below the hovered card's z-index */
+}
+  
+  .page-content {
+    position: relative; /* Required for absolute positioning of the pseudo-element */
+    z-index: 1; /* Ensure the z-index is lower than the hovered card */
+}
+  
+  .team-card.hovered-card {
+    position: relative;
+    z-index: 3; /* Higher than .page-content to stay above the pseudo-element */
+    filter: none !important; /* Use !important to override any inherited filters */
+}
+  
+.global-blur .team-card.hovered-card {
+    filter: none;
+    position: relative;
+    z-index: 11; /* Higher z-index to ensure it's above the blurred layer */
+}
+/* Example hover effect changes */
+.team-card.hovered-card {
+    border: 2px solid blue; /* Change the card outline */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  }
+  
+.team-card.hovered-card img {
+    border-radius: 50%; /* Ensure the image is round */
+    border: 2px solid white; /* Add border to the image if needed */
+}
+  
+.team-card.hovered-card h3 {
+    font-size: 1.25rem; /* Larger text when hovered */
+}
+  

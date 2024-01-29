@@ -1,26 +1,26 @@
-import { Menu } from "@/types/menu";
 
-const menuData: Menu[] = [
+
+const menuData = [
   {
     id: 1,
     title: "Our Services",
-    path: "/",
-    newTab: false,
+    path: "/services",
+    newTab: true,
   },
   {
     id: 2,
     title: "About Us",
     path: "/about",
-    newTab: false,
+    newTab: true,
   },
   {
-    id: 33,
+    id: 3,
     title: "Blog",
     path: "/blog",
     newTab: false,
   },
   {
-    id: 3,
+    id: 4,
     title: "Contact Us",
     path: "/contact",
     newTab: false,
