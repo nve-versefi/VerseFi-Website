@@ -20,7 +20,7 @@ export default function Features() {
                 <path className="stroke-current text-purple-100" d="M30 39.313l-4.18 2.197L27 34.628l-5-4.874 6.91-1.004L32 22.49l3.09 6.26L42 29.754l-3 2.924" strokeLinecap="square" strokeWidth="2" fill="none" fillRule="evenodd" />
                 <path className="stroke-current text-purple-300" d="M43 42h-9M43 37h-9" strokeLinecap="square" strokeWidth="2" />
               </svg>
-              <h4 className="h4 mb-2 text-blueribbon-500">Tech Expertise</h4>
+              <h2 className="h4 mb-2 text-blueribbon-500">Tech Expertise</h2>
               <p className="text-lg text-aztec-500 text-center">Unlock the true power of tech interoperability with our holistic tech stack and team of specialists who guide you through every step of the way. Wether you need automation or tailored software, we've got your back.</p>
             </div>
 

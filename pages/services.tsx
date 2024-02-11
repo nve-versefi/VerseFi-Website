@@ -13,9 +13,7 @@ export default function services() {
   return (
     <RootLayout>
       <DefaultLayout>
-        <div>
           <Menu/>
-        </div>
       </DefaultLayout>
     </RootLayout>
     

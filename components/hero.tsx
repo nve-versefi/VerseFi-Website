@@ -1,15 +1,8 @@
 "use client";
 import React, { useState } from 'react';
-import { PopupWidget } from 'react-calendly';
 
 export default function Hero() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-
-  // Function to handle opening the Calendly modal
-  const openCalendlyModal = () => setIsCalendlyOpen(true);
-
-  // Function to handle closing the Calendly modal
-  const closeCalendlyModal = () => setIsCalendlyOpen(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section>
@@ -36,7 +29,7 @@ export default function Hero() {
               <div data-aos="fade-up" data-aos-delay="400">
                 <button
                   className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                  onClick={openCalendlyModal}
+                  onClick={() => setIsModalOpen(true)}
                 >
                   Free discovery call
                 </button>
@@ -48,16 +41,30 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
-          {/* Conditional rendering of the Calendly PopupWidget */}
-          {isCalendlyOpen && (
-            <PopupWidget
-              url="https://calendly.com/versefi/30min"
-              onClose={closeCalendlyModal}
-            />
-          )}
         </div>
       </div>
+
+      {/* Modal for Calendly booking */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-smoke-light flex">
+          <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg shadow-lg">
+            <iframe
+              src="https://calendly.com/versefi/30min"
+              width="100%"
+              height="600"
+              frameBorder="0"
+            ></iframe>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-0 right-0 mt-4 mr-4"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

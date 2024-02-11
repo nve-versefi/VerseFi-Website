@@ -30,7 +30,7 @@ const menuData = [
   {
     id: 5,
     title: "Digital Transformation & Automation",
-    path: "/consulting",
+    path: "/automation",
     image:"/images/digtransform.png",
     newTab: false,
   },

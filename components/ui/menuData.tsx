@@ -6,6 +6,44 @@ const menuData = [
     title: "Our Services",
     path: "/services",
     newTab: true,
+    submenu: [
+      {
+        id: 11,
+        title: "Full-Stack Web Development",
+        path: "/web",
+        newTab: false,
+      },
+      {
+        id: 12,
+        title: "Tailored Enterprise Software",
+        path: "/software",
+        newTab: false,
+      },
+      {
+        id: 13,
+        title: "Cybersecurity & Performance",
+        path: "/cybersec",
+        newTab: false,
+      },
+      {
+        id: 14,
+        title: "Blockchain & Smart Contracts",
+        path: "/blockchain",
+        newTab: false,
+      },
+      {
+        id: 15,
+        title: "Digital Transformation & Automation",
+        path: "/automation",
+        newTab: false,
+      },
+      {
+        id: 16,
+        title: "Data Analytics",
+        path: "/data",
+        newTab: false,
+      },
+    ],
   },
   {
     id: 2,
@@ -25,42 +63,5 @@ const menuData = [
     path: "/contact",
     newTab: false,
   },
-  {
-    id: 4,
-    title: "Pages",
-    newTab: false,
-    submenu: [
-      {
-        id: 41,
-        title: "About Page",
-        path: "/about",
-        newTab: false,
-      },
-      {
-        id: 42,
-        title: "Contact Page",
-        path: "/contact",
-        newTab: false,
-      },
-      {
-        id: 43,
-        title: "Blog Grid Page",
-        path: "/blog",
-        newTab: false,
-      },
-      {
-        id: 44,
-        title: "Blog Sidebar Page",
-        path: "/blog-sidebar",
-        newTab: false,
-      },
-      {
-        id: 45,
-        title: "Blog Details Page",
-        path: "/blog-details",
-        newTab: false,
-      },
-    ],
-  },
-];
+]
 export default menuData;
