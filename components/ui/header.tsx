@@ -42,15 +42,17 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleStickyNavbar);
   }, []);
 
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const handleSubmenu = (index: number) => {
-    if (openIndex === index) {
-      setOpenIndex(null);
-    } else {
-      setOpenIndex(index);
-    }
-  };
+// Correctly typed useState for openIndex to handle numbers
+const [openIndex, setOpenIndex] = useState<number>(-1);
 
+// Explicitly type the index parameter as number
+const handleSubmenu = (index: number) => {
+  if (openIndex === index) {
+    setOpenIndex(-1); // Resetting to -1 if the same index is clicked again
+  } else {
+    setOpenIndex(index); // Setting to the current index if a different item is clicked
+  }
+};
   return (
     <>
       <header className={`header top-0 left-0 z-40 flex w-full items-center h-[5rem] py-2 bg-aquahaze-300 ${sticky ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-20" : "absolute"}`}>
