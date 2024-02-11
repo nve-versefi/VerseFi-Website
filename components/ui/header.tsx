@@ -16,30 +16,30 @@ const Navbar = () => {
           <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
         </button>
       </div>
-      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}>
-        <div className="text-sm lg:flex-grow">
+      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:flex lg:items-center`}>
+        <div className="lg:flex lg:justify-end lg:flex-grow">
           {menuData.map((item) => item.submenu ? (
-            <div onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)} key={item.id} className="relative">
-            <a href={item.path} className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-black mr-4">
+            <div onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)} key={item.id} className="relative lg:inline-block">
+              <button className="block mt-4 lg:mt-0 text-gray-800 hover:text-black mr-4 lg:px-3 py-2 rounded lg:bg-transparent lg:border-0 lg:hover:border-transparent">
                 {item.title}
-            </a>
+              </button>
               {dropdownOpen && (
-                <div className="absolute bg-white shadow-lg">
+                <div className="absolute mt-1 rounded-sm shadow-lg bg-white">
                   {item.submenu.map((subItem) => (
-                    <Link href={subItem.path} key={subItem.id}     target={subItem.newTab ? '_blank' : '_self'} className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-black mr-4">
-                  
+                    <Link href={subItem.path} key={subItem.id}  target={subItem.newTab ? '_blank' : '_self'} className="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                 
                         {subItem.title}
-           
+                 
                     </Link>
                   ))}
                 </div>
               )}
             </div>
           ) : (
-            <Link href={item.path} key={item.id}   target={item.newTab ? '_blank' : '_self'} className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-black mr-4">
-       
+            <Link href={item.path} key={item.id}  target={item.newTab ? '_blank' : '_self'} className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-black mr-4 px-3 py-2 rounded lg:bg-transparent lg:border-0 lg:hover:border-transparent">
+           
                 {item.title}
-            
+    
             </Link>
           ))}
         </div>
