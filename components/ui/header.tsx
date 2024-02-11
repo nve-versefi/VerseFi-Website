@@ -1,3 +1,4 @@
+'use client'
 // Assuming you have a menuData.ts file that exports an array of menu items
 // The interfaces here are based on the structure you provided in the error messages
 interface SubmenuItem {
