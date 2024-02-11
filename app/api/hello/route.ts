@@ -1,6 +1,7 @@
-// pages/api/hello.ts
-import type { NextApiRequest, NextApiResponse } from 'next'
+// app/api/hello/route.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ name: 'VerseFi Partners' })
+  // Your API logic here. For example, send a JSON response with a message.
+  res.status(200).json({ message: 'Hello World' });
 }
