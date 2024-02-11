@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import Link from 'next/link';
 import menuData from './menuData'; // Ensure this path is correct for your project
