@@ -1,19 +1,4 @@
 'use client'
-// Assuming you have a menuData.ts file that exports an array of menu items
-// The interfaces here are based on the structure you provided in the error messages
-interface SubmenuItem {
-  id: number;
-  title: string;
-  path: string;
-  newTab?: boolean; // Optional, based on your provided structure
-}
-
-interface MenuItem {
-  id: number;
-  title: string;
-  path?: string; // Optional because some menu items might have submenus instead of a direct path
-  submenu?: SubmenuItem[];
-}
 
 // Import the menuData with correct type
 import menuData from "./menuData";
@@ -22,12 +7,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+interface SubmenuItem {
+  id: number;
+  title: string;
+  path: string;
+  newTab?: boolean;
+}
+
+interface MenuItem {
+  id: number;
+  title: string;
+  path?: string;
+  submenu?: SubmenuItem[];
+}
+
 const Header = () => {
+  // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
   };
 
+  // Sticky Navbar
   const [sticky, setSticky] = useState(false);
   const handleStickyNavbar = () => {
     if (window.scrollY >= 80) {
@@ -42,17 +43,17 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleStickyNavbar);
   }, []);
 
-// Correctly typed useState for openIndex to handle numbers
-const [openIndex, setOpenIndex] = useState<number>(-1);
+  // Submenu handler
+  const [openIndex, setOpenIndex] = useState<number>(-1);
+  const handleSubmenu = (index: number) => { // Explicitly declare the parameter type
+    if (openIndex === index) {
+      setOpenIndex(-1);
+    } else {
+      setOpenIndex(index);
+    }
+  };
+  
 
-// Explicitly type the index parameter as number
-const handleSubmenu = (index: number) => {
-  if (openIndex === index) {
-    setOpenIndex(-1); // Resetting to -1 if the same index is clicked again
-  } else {
-    setOpenIndex(index); // Setting to the current index if a different item is clicked
-  }
-};
   return (
     <>
       <header className={`header top-0 left-0 z-40 flex w-full items-center h-[5rem] py-2 bg-aquahaze-300 ${sticky ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-20" : "absolute"}`}>
