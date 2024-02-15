@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  console.log("Rendering CookieBanner");
   useEffect(() => {
     const consent = getCookie('userConsent');
     if (!consent) {
