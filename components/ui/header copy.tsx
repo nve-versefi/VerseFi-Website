@@ -1,17 +1,32 @@
-"use client";
+// Assuming you have a menuData.ts file that exports an array of menu items
+// The interfaces here are based on the structure you provided in the error messages
+interface SubmenuItem {
+  id: number;
+  title: string;
+  path: string;
+  newTab?: boolean; // Optional, based on your provided structure
+}
+
+interface MenuItem {
+  id: number;
+  title: string;
+  path?: string; // Optional because some menu items might have submenus instead of a direct path
+  submenu?: SubmenuItem[];
+}
+
+// Import the menuData with correct type
+import menuData from "./menuData";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import menuData from "./menuData";
 
 const Header = () => {
-  // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
   };
 
-  // Sticky Navbar
   const [sticky, setSticky] = useState(false);
   const handleStickyNavbar = () => {
     if (window.scrollY >= 80) {
@@ -20,15 +35,16 @@ const Header = () => {
       setSticky(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-  });
+    return () => window.removeEventListener("scroll", handleStickyNavbar);
+  }, []);
 
-  // submenu handler
-  const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const handleSubmenu = (index: number) => {
     if (openIndex === index) {
-      setOpenIndex(-1);
+      setOpenIndex(null);
     } else {
       setOpenIndex(index);
     }
@@ -36,47 +52,21 @@ const Header = () => {
 
   return (
     <>
-      <header
-        className={`header top-0 left-0 z-40 flex w-full items-center h-[5rem] py-2 bg-aquahaze-300 ${
-          sticky
-            ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-20"
-            : "absolute"
-        }`}
-      >
+      <header className={`header top-0 left-0 z-40 flex w-full items-center h-[5rem] py-2 bg-aquahaze-300 ${sticky ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-20" : "absolute"}`}>
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
             <div className="w-60 max-w-full px-4 xl:mr-12">
-              <Link
-                href="/"
-                className={`header-logo block w-full ${
-                  sticky ? "py-0 lg:py-0" : "py-0"
-                } `}
-              >
-                <Image
-                  src="images/logo.svg"
-                  alt="logo"
-                  width={140}
-                  height={30}
-                  className="w-full dark:hidden h-[6rem]"
-                />
-                <Image
-                  src="images/logo/logo.svg"
-                  alt="logo"
-                  width={140}
-                  height={30}
-                  className="hidden w-full dark:block  h-[6rem]"
-                />
+              <Link href="/">
+                <a className={`header-logo block w-full ${sticky ? "py-0 lg:py-0" : "py-0"}`}>
+                  <Image src="/images/logo.svg" alt="logo" width={140} height={30} className="w-full dark:hidden h-[6rem]" />
+                  <Image src="/images/logo-dark.svg" alt="logo" width={140} height={30} className="hidden w-full dark:block  h-[6rem]" />
+                </a>
               </Link>
             </div>
             <div className="flex w-full items-center justify-end px-4">
               <div>
-                <button
-                  onClick={navbarToggleHandler}
-                  id="navbarToggler"
-                  aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[3px] ring-primary focus:ring-2 lg:hidden"
-                >
-                  <span
+                <button onClick={navbarToggleHandler} id="navbarToggler" aria-label="Mobile Menu" className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[3px] ring-primary focus:ring-2 lg:hidden">
+                <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
                       navbarOpen ? " top-[7px] rotate-45" : " "
                     }`}
@@ -92,30 +82,19 @@ const Header = () => {
                     }`}
                   />
                 </button>
-                <nav
-                  id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-2 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
-                    navbarOpen
-                      ? "visibility top-full opacity-100"
-                      : "invisible top-[120%] opacity-0"
-                  }`}
-                >
+                <nav id="navbarCollapse" className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-2 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${navbarOpen ? "visible top-full opacity-100" : "invisible top-[120%] opacity-0"}`}>
                   <ul className="block lg:flex lg:space-x-12">
                     {menuData.map((menuItem, index) => (
                       <li key={menuItem.id} className="group relative">
                         {menuItem.path ? (
-                          <Link
-                            href={menuItem.path}
-                            className={`flex py-2 text-xl font-bold text-blueribbon-500 group-hover:opacity-70 dark:text-blueribbon-500 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 mr-4 lg:mr-6`}
-                          >
-                            {menuItem.title}
+                          <Link href={menuItem.path}>
+                            <a className="flex py-2 text-xl font-bold text-blueribbon-500 group-hover:opacity-70 dark:text-blueribbon-500 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 mr-4 lg:mr-6">
+                              {menuItem.title}
+                            </a>
                           </Link>
                         ) : (
                           <>
-                            <a
-                              onClick={() => handleSubmenu(index)}
-                              className="flex cursor-pointer items-center justify-between py-2 text-xl font-bold text-blueribbon-500 group-hover:opacity-70 dark:text-blueribbon-500 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0"
-                            >
+                            <a onClick={() => handleSubmenu(index)} className="flex cursor-pointer items-center justify-between py-2 text-xl font-bold text-blueribbon-500 group-hover:opacity-70 dark:text-blueribbon-500 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0">
                               {menuItem.title}
                               <span className="pl-3">
                                 <svg width="15" height="14" viewBox="0 0 15 14">
@@ -126,18 +105,12 @@ const Header = () => {
                                 </svg>
                               </span>
                             </a>
-                            <div
-                              className={`submenu relative top-full left-0 rounded-md bg-white transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
-                                openIndex === index ? "block" : "hidden"
-                              }`}
-                            >
-                              {menuItem.submenu.map((submenuItem) => (
-                                <Link
-                                  href={submenuItem.path}
-                                  key={submenuItem.id}
-                                  className="block rounded py-2.5 text-sm text-dark text-blueribbon-500 hover:opacity-70 dark:text-white lg:px-3"
-                                >
-                                  {submenuItem.title}
+                            <div className={`submenu relative top-full left-0 rounded-md bg-white transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${openIndex === index ? "block" : "hidden"}`}>
+                              {menuItem.submenu && menuItem.submenu.map((submenuItem) => (
+                                <Link key={submenuItem.id} href={submenuItem.path}>
+                                  <a className="block rounded py-2.5 text-sm text-dark text-blueribbon-500 hover:opacity-70 dark:text-white lg:px-3">
+                                    {submenuItem.title}
+                                  </a>
                                 </Link>
                               ))}
                             </div>

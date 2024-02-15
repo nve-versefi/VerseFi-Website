@@ -12,12 +12,14 @@ const menuData = [
         title: "Full-Stack Web Development",
         path: "/web",
         newTab: false,
+        icon:"/images/webdev.png"
       },
       {
         id: 12,
         title: "Tailored Enterprise Software",
         path: "/software",
         newTab: false,
+        icon:"/images/software.png"
       },
       {
         id: 13,
@@ -42,6 +44,7 @@ const menuData = [
         title: "Data Analytics",
         path: "/data",
         newTab: false,
+        icon:"/images/datascience.png"
       },
     ],
   },
