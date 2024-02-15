@@ -1,7 +1,6 @@
 import './css/style.css';
 import { Inter, Architects_Daughter } from 'next/font/google';
 import Head from 'next/head';
-import Header from '@/components/ui/header';
 import dynamic from 'next/dynamic';
 
 import CookieBanner from '@/components/cookieconsent';
