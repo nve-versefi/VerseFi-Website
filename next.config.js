@@ -5,7 +5,7 @@ const nextConfig = {
     async redirects() {
         return [
             {
-                source: '/app/(default)/page.tsx',
+                source: '/',
                 destination: '/home',
                 permanent: true,
             },
