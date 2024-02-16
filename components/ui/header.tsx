@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import menuData from './menuData'; // Verify this path matches your project structure
 
@@ -16,7 +15,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [sticky, setSticky] = useState(false); // State to track sticky navbar
-  const router = useRouter();
 
   // Handle sticky navbar
   useEffect(() => {
@@ -35,11 +33,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Navigate to function
-  const navigateTo = (path: string) => {
-    router.push(path);
-  };
-
   return (
     <nav className={`flex items-center justify-between w-full shadow-md ${sticky ? 'bg-white fixed top-0 z-50' : 'bg-transparent'} transition-all duration-300 ease-in-out`} style={{zIndex: 1000}}>
       <div className="flex items-center text-black mr-6">
@@ -53,14 +46,14 @@ const Navbar = () => {
       <div className={`${isMobileMenuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row lg:items-center w-full lg:w-auto`}>
         {menuData.map((item: MenuItem, index: number) => (
           <div key={item.id} className="relative mx-8 lg:inline-block">
-            <button
+            <a
+              href={item.path}
               onMouseEnter={() => setOpenIndex(index)}
               onFocus={() => setOpenIndex(index)}
-              onClick={() => item.path && navigateTo(item.path)}
               className="text-blue-600 text-xl font-bold hover:text-blue-800 px-8 py-2 rounded lg:mt-0 mr-4"
             >
               {item.title}
-            </button>
+            </a>
             {item.submenu && (
               <div 
                 className={`absolute z-20 ${openIndex === index ? 'block' : 'hidden'} bg-white shadow-lg rounded-md mt-1`}
@@ -68,13 +61,13 @@ const Navbar = () => {
                 onMouseLeave={() => setOpenIndex(null)}
               >
                 {item.submenu.map((subItem: MenuItem, subIndex: number) => (
-                  <button
+                  <a
                     key={subIndex}
-                    onClick={() => navigateTo(subItem.path || '')}
+                    href={subItem.path}
                     className="block w-full px-4 py-2 text-sm text-blue-700 hover:bg-gray-100"
                   >
                     {subItem.title}
-                  </button>
+                  </a>
                 ))}
               </div>
             )}
